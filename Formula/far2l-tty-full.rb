@@ -1,5 +1,5 @@
 class Far2lTtyFull < Formula
-  desc "Unix TTY port of FAR Manager v2 (complete build with Python and all NetRocks protocols)"
+  desc "Unix TTY port of FAR Manager v2 (full build with Python and NetRocks)"
   homepage "https://github.com/elfmz/far2l"
   url "https://github.com/elfmz/far2l/archive/refs/tags/v_2.8.0.tar.gz"
   sha256 "b0fddad2e3985f245f9e691e23b90fb97f7d29d9a0b131fe686aa3cbb2e4ea01"
