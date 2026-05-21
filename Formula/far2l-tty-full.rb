@@ -44,6 +44,17 @@ class Far2lTtyFull < Formula
       -DCOLORER=ON
     ]
 
+    # FindX11.cmake does not pick up Homebrew keg paths via CMAKE_PREFIX_PATH,
+    # so point it directly at the libx11/libxi prefixes on Linux.
+    if OS.linux?
+      libx11 = Formula["libx11"].opt_prefix
+      libxi = Formula["libxi"].opt_prefix
+      args << "-DX11_X11_INCLUDE_PATH=#{libx11}/include"
+      args << "-DX11_X11_LIB=#{libx11}/lib/libX11.so"
+      args << "-DX11_Xi_INCLUDE_PATH=#{libxi}/include"
+      args << "-DX11_Xi_LIB=#{libxi}/lib/libXi.so"
+    end
+
     system "cmake", "-S", ".", "-B", "build", "-GNinja", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
