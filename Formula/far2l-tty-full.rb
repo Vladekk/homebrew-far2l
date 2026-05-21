@@ -29,6 +29,7 @@ class Far2lTtyFull < Formula
   on_linux do
     depends_on "libx11"
     depends_on "libxi"
+    depends_on "xorgproto"
   end
 
   def install
