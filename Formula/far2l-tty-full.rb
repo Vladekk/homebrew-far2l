@@ -46,14 +46,19 @@ class Far2lTtyFull < Formula
     ]
 
     # FindX11.cmake does not pick up Homebrew keg paths via CMAKE_PREFIX_PATH,
-    # so point it directly at the libx11/libxi prefixes on Linux.
+    # so point it directly at the libx11/libxi prefixes on Linux. xorgproto
+    # ships X11/X.h that libx11's Xlib.h includes, but its include dir is not
+    # added transitively by the X11 IMPORTED target — inject it via flags.
     if OS.linux?
       libx11 = Formula["libx11"].opt_prefix
       libxi = Formula["libxi"].opt_prefix
+      xorgproto = Formula["xorgproto"].opt_prefix
       args << "-DX11_X11_INCLUDE_PATH=#{libx11}/include"
       args << "-DX11_X11_LIB=#{libx11}/lib/libX11.so"
       args << "-DX11_Xi_INCLUDE_PATH=#{libxi}/include"
       args << "-DX11_Xi_LIB=#{libxi}/lib/libXi.so"
+      args << "-DCMAKE_CXX_FLAGS=-I#{xorgproto}/include"
+      args << "-DCMAKE_C_FLAGS=-I#{xorgproto}/include"
     end
 
     system "cmake", "-S", ".", "-B", "build", "-GNinja", *args, *std_cmake_args
