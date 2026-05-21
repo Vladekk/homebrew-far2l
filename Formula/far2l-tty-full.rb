@@ -14,6 +14,7 @@ class Far2lTtyFull < Formula
   depends_on "gperf" => :build
   depends_on "ninja" => :build
   depends_on "pkgconf" => :build
+  depends_on "aws-sdk-cpp"
   depends_on "libarchive"
   depends_on "libnfs"
   depends_on "libssh"
